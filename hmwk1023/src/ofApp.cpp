@@ -303,6 +303,10 @@ void ofApp::aLine(int x1, int y1, int x2, int y2, string shape) {
     
 }
 
+void drawCurve(float pointNumber, float startPointX, float startPointY, float endPointX, float endPointY, float ctrlPointX1, float ctrlPointY1, float ctrlPointX2, float ctrlPointY2) {
+    
+}
+
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
