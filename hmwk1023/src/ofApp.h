@@ -10,7 +10,8 @@ class ofApp : public ofBaseApp{
 		void draw();
     
         void aLine(int x1, int y1, int x2, int y2, string shape);
-        void drawCurve(float pointNumber, float startPointX, float startPointY, float endPointX, float endPointY, float ctrlPointX1, float ctrlPointY1, float ctrlPointX2, float ctrlPointY2);
+        //void drawCurve(float pointNumber, float startPointX, float startPointY, float endPointX, float endPointY, float ctrlPointX1, float ctrlPointY1, float ctrlPointX2, float ctrlPointY2);
+        void drawCircleGroup(float circleNumber, float circleX, float circleY, float circleR, bool vertical, bool fill, bool randomColor);
 
 		void keyPressed(int key);
 		void keyReleased(int key);
