@@ -1,0 +1,153 @@
+#include "ofApp.h"
+
+//--------------------------------------------------------------
+void ofApp::setup(){
+    
+    
+    //--- variables
+    
+    backgroundColor.set(ofColor::white);
+    
+    circleResolution = 120;
+    
+    w = ofGetWidth(),
+    h = ofGetHeight();
+    
+    
+    //--- setup
+    
+    ofBackground(backgroundColor);
+    ofSetBackgroundAuto(false);
+    
+    ofSetCircleResolution(circleResolution);
+    
+    
+    ofSetColor(0);
+    
+    int numCircles = 120;
+    
+    for (int i = 0; i < numCircles; i++) {
+
+        ofPoint p, v;
+        ofColor c;
+
+        float r = ofRandom(3, 9);
+        p.set(w/2 + ofRandomuf()*r*10, h/2 + ofRandomuf()*20);
+        v.set(ofSignedNoise(i*0.21)*ofRandom(i)*1.414, ofSignedNoise(i*0.21)*ofRandom(i)*1.414);
+        c.set(ofRandom(180), ofRandom(60), ofRandom(120), ofRandom(30));
+        
+        radius.push_back(r);
+        pos.push_back(p);
+        vel.push_back(v);
+        col.push_back(c);
+
+    }
+
+    
+}
+
+//--------------------------------------------------------------
+void ofApp::update(){
+//    
+//    for (int i = 0; i < vel.size(); i ++) {
+//        
+//    }
+    
+// trail.erase(trail.begin());
+    
+    
+    for (int i = 0; i < pos.size(); i++) {
+        
+        if (pos[i].x > w || pos[i].x < 0) {
+            
+            // pos[i].x = (pos[i].x >= w) ? 0 : w;
+            vel[i].x *= -1.0;
+            
+        }
+        
+        if (pos[i].y > h || pos[i].y < 0) {
+        
+            // pos[i].y = (pos[i].y >= h) ? 0 : h;
+            vel[i].y *= -1.0;
+        }
+            
+        pos[i] += vel[i];
+        
+    }
+    
+
+}
+
+//--------------------------------------------------------------
+void ofApp::draw(){
+    
+    //ofCircle(pos, radius);
+    
+    for (int i = 0; i < pos.size(); i++) {
+        ofSetColor(col[i]);
+        ofCircle(pos[i], radius[i]);
+    }
+
+}
+
+//---------------------------
+
+
+//---------------------------
+
+void ofApp::convertCoordToColor(int x, int y) {
+
+    
+    // return ofColor(x,y);
+    
+}
+
+
+//--------------------------------------------------------------
+void ofApp::keyPressed(int key){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::keyReleased(int key){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseMoved(int x, int y ){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseDragged(int x, int y, int button){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::mousePressed(int x, int y, int button){
+    
+}
+
+//--------------------------------------------------------------
+void ofApp::mouseReleased(int x, int y, int button){
+    
+    //cout << convertCoordToColor(x, y) << endl;
+    //ofSetColor(color);
+    //ofCircle(x, y, 10);
+    
+}
+
+//--------------------------------------------------------------
+void ofApp::windowResized(int w, int h){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::gotMessage(ofMessage msg){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::dragEvent(ofDragInfo dragInfo){ 
+
+}

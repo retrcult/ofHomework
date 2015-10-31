@@ -57,10 +57,10 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::randomColor(ofColor color, float x){
     
-    color.r = ofMap(x*mouseX, 0, ofGetHeight(), 10, 80);
+    color.r = ofMap(x*mouseX, 0, ofGetWidth(), 10, 80);
     color.g = ofMap(x*mouseY, 0, ofGetHeight(), 80, 210);
     color.b = ofMap(x*mouseY, 0, ofGetHeight(), 100, 220);
-    color.a = ofMap(x*mouseX, 0, ofGetHeight(), 90, 240);
+    color.a = ofMap(x*mouseX, 0, ofGetWidth(), 90, 240);
     ofSetColor(color);
     
 };

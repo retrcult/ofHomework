@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "particle.h"
 
 class ofApp : public ofBaseApp{
 
@@ -19,18 +20,12 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-        void drawCircleGroup(float circleNumber, ofPoint circleOrigin, float circleR, float increment, bool vertical, bool fill, bool randomColor);
-    
-    ofColor bgColorTop, bgColorBottom;
-    ofColor circleColor;
-    float circleResolution;
-    
-    vector<int> circNum;
-    vector<float> circX;
-    vector<float> circY;
-    vector<float> circR;
-    vector<float> incr;
-    vector<ofPoint> circPoint;
-    vector<ofColor> circColor;
-		
+
+    vector<particle> particleSystem;
+    vector<particle> particlesFollowingMouse;
+
+    int circleResolution = 60;
+    int numCircles = 10;
+    int numCirclesFollowed = 16;
+
 };

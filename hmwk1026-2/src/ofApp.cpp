@@ -3,8 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    bgColorTop.set(252,236,155);
-    bgColorBottom.set(251,233,208);
+    //bgColorTop.set(252,236,155);
+    //bgColorBottom.set(251,233,208);
     
     circleResolution = 120;
     
@@ -21,29 +21,45 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
-    ofBackgroundGradient(bgColorTop, bgColorBottom, OF_GRADIENT_LINEAR);
+    //ofBackgroundGradient(bgColorTop, bgColorBottom, OF_GRADIENT_LINEAR);
     
     ofFill();
     ofSetColor(255);
     ofCircle(mouseX, mouseY, 6);
     
+    float circNum, numIncr;
     
-    drawCircleGroup(15, 100, 200, 35, 20, true, true, true);
-    drawCircleGroup(15, 400, 500, 10, 40, false, true, true);
+    circNum = 6;
+    numIncr = 25;
     
     
+    
+//    drawCircleGroup(15, 100, 200, 35, 20, true, true, true);
+//    drawCircleGroup(5, 400, 500, 10, 40, false, true, true);
+//    drawCircleGroup(5, 340, 450, 10, 40, false, true, true);
+//    drawCircleGroup(7, 300, 300, 20, 340, false, true, true);
+//    
+    for (int i = 0; i < circPoint.size(); i++) {
+        
+        ofSetColor(circColor[i]);
+        
+        drawCircleGroup(ofNoise(i+1)*10*i, circPoint[i], 5, 5, true, true, true);
+    }
+
+
 }
 
 //--------------------------------------------------------------
 
 
 //--------------------------------------------------------------
-void ofApp::drawCircleGroup(float circleNumber, float circleX, float circleY, float circleR, float increment, bool vertical, bool fill, bool randomColor) {
+
+void ofApp::drawCircleGroup(float circleNumber, ofPoint circleOrigin, float circleR, float increment, bool vertical, bool fill, bool randomColor) {
     
     float varX, varY;
-    float noise, distance;
+    float noiseX, noiseY;
     
-    float scale = ofMap(mouseX, 0, ofGetWidth(), 0.001, 0.999);
+    float scale = ofMap(ofNoise(mouseX, mouseY)*100, 0, ofNoise(ofGetWidth(), ofGetHeight())*100, 0, 1);
     
     if (fill) {
         ofFill();
@@ -51,33 +67,45 @@ void ofApp::drawCircleGroup(float circleNumber, float circleX, float circleY, fl
         ofNoFill();
     }
     
-    for (int i = 0; i < circleNumber; i++) {
+    for (int i = circleNumber; i > 0; i--) {
         
-        noise = ofSignedNoise(i*scale)*i*mouseX;
-        distance = ofSignedNoise(i*scale)*mouseY;
-        
-        if (randomColor) {
-            circleColor.r = ofNoise(i*scale, ofGetElapsedTimef())*i;
-            circleColor.g = ofNoise(i*scale)*i*255;
-            circleColor.b = ofNoise(i*scale)*255;
-            circleColor.a = ofNoise(i*scale)*50;
+        noiseX = ofSignedNoise(i*scale)*i*mouseX;
+        noiseY = ofSignedNoise(i*scale)*i*mouseY;
 
-//            circleColor.r = ofRandom(i*scale)*i;
-//            circleColor.g = ofRandom(i*scale)*255;
-//            circleColor.b = ofRandom(i*scale)*i*25;
+        // noiseX = ofRandom(50);
+        // noiseY = ofRandom(50);
+        
+//        if (randomColor) {
+//            circleColor.r = ofMap(ofNoise(mouseX, mouseY), 0, ofNoise(ofGetWidth(), ofGetHeight()), 0, 255);
+//            circleColor.g = ofMap(ofNoise(mouseX), 0, ofNoise(ofGetWidth()), 0, 255);
+//            circleColor.b = ofMap(ofNoise(mouseY), 0, ofNoise(ofGetHeight()), 0, 255);
+//            circleColor.a = ofMap(mouseX, 0, ofGetWidth(), 0, 120);
+//            // circleColor.r = ofMap(mouseX, 0, ofGetWidth(), 0, 255);
+//            circleColor.g = ofMap(mouseY, 0, ofGetHeight(), 0, 255);
+//            circleColor.b = ofMap(mouseY, 0, ofGetHeight(), 0, 255);
+//            circleColor.a = ofMap(mouseX, 0, ofGetWidth(), 0, 50);
 
-        }
+//        }
         
-        ofSetColor(circleColor);
+        //ofSetColor(circleColor);
         
-        if (vertical) {
-            ofCircle(circleX + noise, circleY + distance, circleR + increment * i);
         
+//        if (vertical) {
+//            ofCircle(circleOrigin.x + noise, circleOrigin.y + distance, circleR + increment * i);
+//        
+//        } else {
+//            ofCircle(circleOrigin.x + distance, circleOrigin.y + noise, circleR + increment * i);
+//        }
+//        
+
+        if (i % 5 == 0) {
+            ofCircle(circleOrigin.x + noiseX, circleOrigin.y + noiseY, circleR + increment * i);
+        } else if (i % 5 == 1) {
+            ofCircle(circleOrigin.x + 10*ofNoise(i*noiseX), circleOrigin.y + 10*ofNoise(i*noiseY), circleR + increment * i);
         } else {
-            ofCircle(circleX + distance, circleY + noise, circleR + increment * i);
+            ofCircle(circleOrigin.x + noiseX*0.4, circleOrigin.y + noiseY*0.6, circleR + increment * i);
         }
         
-        //ofCircle(circleX + noise, circleY + distance, circleR+30*i);
         
     }
 }
@@ -87,8 +115,8 @@ void ofApp::keyPressed(int key){
 
     if (key == 'r') {
         circleColor.r = ofRandom(1)*255;
-        circleColor.r = ofNoise(ofGetElapsedTimef());
-        drawCircleGroup(5, mouseX, mouseY, 40, 30, true, true, false);
+        // circleColor.r = ofNoise(ofGetElapsedTimef());
+        //drawCircleGroup(5, , 40, 30, true, true, false);
         
 
     }
@@ -125,12 +153,14 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+    
+    circPoint.push_back(ofPoint(x, y));
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+    circColor.push_back(ofColor(ofMap(x, 0, ofGetWidth(), 0, 255)));
 }
 
 //--------------------------------------------------------------
