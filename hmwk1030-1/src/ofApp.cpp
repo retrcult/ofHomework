@@ -3,12 +3,14 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    ofSetCircleResolution(circleResolution);
-    // ofSetBackgroundAuto(false);
+    sound.loadSound("mistress.mp3");
+    sound.play();
+    
+    ofBackground(250);
 
-    for (int i = 0; i < numCircles; i++) {
+    for (int i = 0; i < numCirclesInit; i++) {
         particle myParticle;
-        myParticle.setup();
+        myParticle.setup(w/2, h/2);
         particleSystem.push_back(myParticle);
     }
 
@@ -19,7 +21,7 @@ void ofApp::update(){
 
     for (int i = 0; i < particleSystem.size(); i++) {
         
-        particleSystem[i].update();
+        particleSystem[i].update(i);
         
         if (i % 2 == 0) {
             particleSystem[i].bounceOffWalls();
@@ -45,7 +47,11 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    
+    if (key == ' ') {
+        particleSystem.clear();
+    }
+    
 }
 
 //--------------------------------------------------------------
@@ -60,26 +66,29 @@ void ofApp::mouseMoved(int x, int y ){
         particlesFollowingMouse.erase(particlesFollowingMouse.begin());
     }
     
-        particle moveTrack;
-        moveTrack.setup();
-        moveTrack.pos.set(x, y);
-        particlesFollowingMouse.push_back(moveTrack);
-
+    particle moveTrack;
+    moveTrack.setup(x, y);
+    particlesFollowingMouse.push_back(moveTrack);
     
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
 
+    particle myParticle;
+    myParticle.setup(x, y);
+    particleSystem.push_back(myParticle);
+
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
     
+    particlesFollowingMouse.clear();
+    
     for (int i = 0; i < ofRandom(5, 40); i++) {
         particle myParticle;
-        myParticle.setup();
-        myParticle.pos.set(x, y);
+        myParticle.setup(x, y);
         particleSystem.push_back(myParticle);
     }
     

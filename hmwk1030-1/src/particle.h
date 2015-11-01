@@ -22,19 +22,21 @@
 class particle {
     
 public:
-    void setup();
-    void update();
+    void setup(float x, float y);
+    void update(int incr);
     void draw();
+    void clrFade();
 
-    void setMousePos();
+    // void setMousePos();
     void bounceOffWalls();
     void wrapAround();
 
-    
-    ofColor col;
+    ofColor clr;
     ofPoint pos, vel;
     float rad;
-    
+    int cirRes;
+    int fill;
+
     float w = ofGetWidth(),
           h = ofGetHeight();
     

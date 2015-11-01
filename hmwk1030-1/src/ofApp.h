@@ -24,8 +24,12 @@ class ofApp : public ofBaseApp{
     vector<particle> particleSystem;
     vector<particle> particlesFollowingMouse;
 
-    int circleResolution = 60;
-    int numCircles = 10;
-    int numCirclesFollowed = 16;
+    int numCirclesInit = 10;
+    int numCirclesFollowed = 12;
+    
+    float w = ofGetWidth(),
+          h = ofGetHeight();
+    
+    ofSoundPlayer sound;
 
 };
