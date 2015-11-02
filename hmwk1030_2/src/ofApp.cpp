@@ -21,12 +21,13 @@ void ofApp::draw(){
     pen.drawCircle();
     
     //if (curveMode) {
+    ofBeginShape();
         for (int i = 0; i < curveGroup.size(); i++) {
             ofSetColor(ofColor(curveGroup[i].clr));
-            ofBeginShape();
             curveGroup[i].drawCurveVertex();
-            ofEndShape();
         }
+    ofEndShape();
+
     //} else {
         for (int i = 0; i < trail.size(); i++) {
             trail[i].drawCircle();

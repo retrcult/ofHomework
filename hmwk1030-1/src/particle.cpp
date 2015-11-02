@@ -28,8 +28,8 @@ void particle::update(int incr) {
     rad += 0.05 * ofNoise(rad);
     //clr.r += 1;
     
-    vel.x += ofMap(ofGetMouseX(), 0, w, -1.0, 1.0) * 0.5 * noise;
-    vel.y += ofMap(ofGetMouseY(), 0, h, -1.0, 1.0) * 0.5 * noise;
+    vel.x += ofMap(ofGetMouseX(), 0, w, -1.0, 1.0) * 0.2 * noise;
+    vel.y += ofMap(ofGetMouseY(), 0, h, -1.0, 1.0) * 0.2 * noise;
     pos += vel;
     
 }
@@ -56,12 +56,6 @@ void particle::clrFade() {
     }
 
 }
-
-//void particle::setMousePos() {
-//    
-//    pos.set(ofGetMouseX(), ofGetMouseY());
-//    
-//}
 
 void particle::bounceOffWalls() {
     

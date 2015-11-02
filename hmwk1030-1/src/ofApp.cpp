@@ -23,11 +23,11 @@ void ofApp::update(){
         
         particleSystem[i].update(i);
         
-        if (i % 2 == 0) {
+        //if (i % 2 == 0) {
             particleSystem[i].bounceOffWalls();
-        } else {
-            particleSystem[i].wrapAround();
-        }
+        //} else {
+        //    particleSystem[i].wrapAround();
+        //}
     }
 
 }

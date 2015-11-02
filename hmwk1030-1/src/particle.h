@@ -27,7 +27,6 @@ public:
     void draw();
     void clrFade();
 
-    // void setMousePos();
     void bounceOffWalls();
     void wrapAround();
 

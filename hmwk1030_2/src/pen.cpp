@@ -15,7 +15,7 @@
 void penTool::setup(){
     
     clr.set(ofRandom(0,255), ofRandom(0,255), ofRandom(0,255), ofRandom(0,255));
-    pos.set(ofGetMouseX(), ofGetMouseY());
+    pos.set(ofGetMouseX(), ofGetMouseY()); //??
     rad = ofRandom(5, 12);
     
 }
